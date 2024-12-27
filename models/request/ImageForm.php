@@ -2,7 +2,9 @@
 
 namespace app\models\request;
 
+use Carbon\Carbon;
 use yii\base\Model;
+use yii\helpers\FileHelper;
 
 class ImageForm extends Model
 {
@@ -11,15 +13,20 @@ class ImageForm extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'required', 'skipOnEmpty' => false,]
+            ['imageFile', 'required'],
+            [['imageFile'], 'image', 'skipOnEmpty' => false,]
         ];
     }
 
     public function upload()
     {
-        $file_path = 'uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension;
-        $this->imageFile->saveAs($file_path);
+        $path_upload = 'uploads/images/';
+        $path_with_date = Carbon::now()->format('Y/m/d');
 
+        FileHelper::createDirectory($path_upload . $path_with_date);
+        $file_path = $path_upload . $path_with_date . '/' . $this->imageFile->baseName . '.' . $this->imageFile->extension;
+        $this->imageFile->saveAs($file_path);
+        
         return $file_path;
     }
 }

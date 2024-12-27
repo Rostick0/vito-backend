@@ -15,28 +15,34 @@ class ImageController extends Controller
     public function actionUpload()
     {
         $model = new ImageForm();
+        // dd(Yii::$app->urlManager->createAbsoluteUrl(''));
+        $model->imageFile = UploadedFile::getInstanceByName('imageFile');
+
+        // dd($model);
+        // $model->load(Yii::$app->request->post(), '');
+        // dd(UploadedFile::getInstance($model, 'imageFile'));
+        // dd($model->imageFile);
+        // $model->load(Yii::$app->request->post(), '');
 
         if (!$model->validate()) {
             Yii::$app->response->statusCode = 422;
             return $model->getErrors();
         }
-        // var_dump($model->getErrors());
 
-        // if (Yii::$app->request->isPost) {
-        //     $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+        if (Yii::$app->request->isPost) {
 
-        //     $upload = $model->upload();
-        //     if ($upload) {
-        //         return $this->asJson([
-        //             'path' => $upload
-        //         ]);
-        //     }
-        //     var_dump($upload);
-        // }
+            $upload = $model->upload();
+            // dd($upload);
+            if ($upload) {
+                return [
+                    'path' => $upload
+                ];
+            }
+        }
 
 
         Yii::$app->response->statusCode = 400;
 
-        return $model->getErrors() ?? ['message' => 'You have error'];
+        return ['message' => 'You have error'];
     }
 }

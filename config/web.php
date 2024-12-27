@@ -60,7 +60,7 @@ $config = [
                     // 'class' => 'yii\web\UploadedFile',
                     'controller' => 'image',
                     'extraPatterns' => [
-                        'POST upload' => 'upload'
+                        'OPTIONS,POST upload' => 'upload'
                         // 'OPTIONS, POST upload' => 'upload'
                     ],
                 ],
