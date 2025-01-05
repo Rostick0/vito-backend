@@ -17,7 +17,8 @@ use Yii;
  *
  * @property Category $category
  */
-class SearchProduct extends \yii\base\Model
+// \yii\base\Model
+class SearchProduct extends \app\models\Product
 {
     public $id;
     public $name;
@@ -32,10 +33,15 @@ class SearchProduct extends \yii\base\Model
     {
         return [
             [['price'], 'number'],
-            [['is_show', 'category_id'], 'integer'],
+            [['id', 'is_show', 'category_id'], 'integer'],
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
+    }
+
+    public function search($params)
+    {
+        dd($params);
     }
 }
