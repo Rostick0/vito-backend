@@ -11,6 +11,7 @@ $config = [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
     ],
+    'timeZone' => 'Europe/Moscow',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -47,6 +48,32 @@ $config = [
                 ],
             ],
         ],
+        'jwt' => [
+            'class' => \bizley\jwt\Jwt::class,
+            'signer' => \bizley\jwt\Jwt::ES256,
+            'signingKey' => [
+                // 'key' => 'c2dmZ2hnd2c0dDEzMmV3ZnJlMQ==',
+                // 'key' => 'sgfghgwg4t132ewfre1',
+                'key' => '../keys/private.pem',
+                'method' => \bizley\jwt\Jwt::METHOD_FILE,
+            ],
+            'verifyingKey' => [
+                // 'key' => 'c2dmZ2hnd2c0dDEzMmV3ZnJlMTEyMnczMTI=',
+                // 'key' => 'sgfghgwg4t132ewfre1122w312',
+                'key' => '../keys/public.pem',
+                'method' => \bizley\jwt\Jwt::METHOD_FILE,
+            ],
+            'validationConstraints' => static function (\bizley\jwt\Jwt $jwt) {
+                $config = $jwt->getConfiguration();
+                return [
+                    new \Lcobucci\JWT\Validation\Constraint\SignedWith($config->signer(), $config->verificationKey()),
+                    new \Lcobucci\JWT\Validation\Constraint\LooseValidAt(
+                        new \Lcobucci\Clock\SystemClock(new \DateTimeZone(\Yii::$app->timeZone)),
+                        new \DateInterval('PT10S')
+                    ),
+                ];
+            },
+        ],
         'db' => $db,
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -65,6 +92,15 @@ $config = [
                     ],
                 ],
                 // ['class' => 'yii\rest\UrlRule', 'controller' => 'image'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'auth',
+                    'extraPatterns' => [
+                        'OPTIONS,POST register' => 'register',
+                        'OPTIONS,POST login' => 'login',
+                        'OPTIONS,GET me' => 'me',
+                    ],
+                ],
             ],
         ],
     ],
