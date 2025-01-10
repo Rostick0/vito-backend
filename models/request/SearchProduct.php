@@ -3,7 +3,9 @@
 namespace app\models\request;
 
 use app\models\Category;
+use app\models\Product;
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "category".
@@ -18,13 +20,15 @@ use Yii;
  * @property Category $category
  */
 // \yii\base\Model
-class SearchProduct extends \app\models\Product
+class SearchProduct extends Product
 {
     public $id;
     public $name;
     public $price;
     public $category_id;
     public $category;
+    public $categoryName;
+    // public $filters = [];
 
     /**
      * {@inheritdoc}
@@ -37,11 +41,22 @@ class SearchProduct extends \app\models\Product
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['categoryName'], 'string']
         ];
     }
 
     public function search($params)
     {
-        dd($params);
+        $query = Product::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        // $this->load($params, '');
+
+        // dd($dataProvider);
+
+        return $dataProvider;
     }
 }

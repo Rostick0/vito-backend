@@ -14,8 +14,8 @@ class m241224_082545_create_users_table extends Migration
     {
         $this->createTable('{{%users}}', [
             'id' => $this->primaryKey(),
-            'email' => $this->string()->unique(),
-            'tel' => $this->string()->null(),
+            'email' => $this->string()->unique()->notNull(),
+            'tel' => $this->string(),
             'password' => $this->string(),
             'raiting' => $this->float()->defaultValue(0),
             'is_confirm' => $this->boolean()->defaultValue(false),

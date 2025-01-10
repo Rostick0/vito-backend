@@ -52,14 +52,10 @@ $config = [
             'class' => \bizley\jwt\Jwt::class,
             'signer' => \bizley\jwt\Jwt::ES256,
             'signingKey' => [
-                // 'key' => 'c2dmZ2hnd2c0dDEzMmV3ZnJlMQ==',
-                // 'key' => 'sgfghgwg4t132ewfre1',
                 'key' => '../keys/private.pem',
                 'method' => \bizley\jwt\Jwt::METHOD_FILE,
             ],
             'verifyingKey' => [
-                // 'key' => 'c2dmZ2hnd2c0dDEzMmV3ZnJlMTEyMnczMTI=',
-                // 'key' => 'sgfghgwg4t132ewfre1122w312',
                 'key' => '../keys/public.pem',
                 'method' => \bizley\jwt\Jwt::METHOD_FILE,
             ],
@@ -82,13 +78,13 @@ $config = [
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'product'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'vendor'],
                 [
                     'class' => 'yii\rest\UrlRule',
                     // 'class' => 'yii\web\UploadedFile',
                     'controller' => 'image',
                     'extraPatterns' => [
                         'OPTIONS,POST upload' => 'upload'
-                        // 'OPTIONS, POST upload' => 'upload'
                     ],
                 ],
                 // ['class' => 'yii\rest\UrlRule', 'controller' => 'image'],

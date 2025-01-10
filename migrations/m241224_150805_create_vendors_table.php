@@ -3,19 +3,18 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `{{%categories}}`.
+ * Handles the creation of table `{{%vendors}}`.
  */
-class m241224_150804_create_categories_table extends Migration
+class m241224_150805_create_vendors_table extends Migration
 {
     /**
      * {@inheritdoc}
      */
     public function safeUp()
     {
-        $this->createTable('{{%categories}}', [
+        $this->createTable('{{%vendors}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'category_id' => $this->integer()
         ]);
     }
 
@@ -24,6 +23,6 @@ class m241224_150804_create_categories_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%categories}}');
+        $this->dropTable('{{%vendors}}');
     }
 }

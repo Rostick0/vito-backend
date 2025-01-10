@@ -8,10 +8,11 @@ use Yii;
  * This is the model class for table "product".
  *
  * @property int $id
- * @property string|null $name
- * @property float|null $price
+ * @property string $name
+ * @property float $price
  * @property int|null $is_show
- * @property int|null $category_id
+ * @property int $category_id
+ * @property int $vendor_id
  * @property string|null $created_at
  *
  * @property Category $category
@@ -32,11 +33,13 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name', 'price', 'category_id', 'vendor_id'], 'required'],
             [['price'], 'number'],
-            [['is_show', 'category_id'], 'integer'],
+            [['is_show', 'category_id', 'vendor_id'], 'integer'],
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
         ];
     }
 

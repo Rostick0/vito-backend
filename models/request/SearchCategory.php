@@ -2,6 +2,7 @@
 
 namespace app\models\request;
 
+use app\models\Category;
 use app\models\Product;
 use Yii;
 
@@ -14,7 +15,7 @@ use Yii;
  *
  * @property Product[] $products
  */
-class SearchCategory extends \yii\base\Model
+class SearchCategory extends Category
 {
     public $id;
     public $name;
