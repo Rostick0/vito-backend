@@ -1,6 +1,6 @@
 <?php
 
-use app\enum\PropertyType;
+use app\enum\PropertyTypeEnum;
 use app\utils\EnumFields;
 use yii\db\Migration;
 
@@ -17,7 +17,7 @@ class m250109_202420_create_properties_table extends Migration
         $this->createTable('{{%properties}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
-            'type' => 'ENUM(' .  EnumFields::getValidateValues(PropertyType::class, "'", "'") . ') NOT NULL', //$this->string()->notNull(), //checkbox,select,input
+            'type' => 'ENUM(' .  EnumFields::getValidateValues(PropertyTypeEnum::class, "'", "'") . ') NOT NULL', //$this->string()->notNull(), //checkbox,select,input
             'unit' => $this->string(),
             'property_type_id' => $this->integer()->notNull(),
         ]);

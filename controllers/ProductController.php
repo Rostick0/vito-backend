@@ -6,7 +6,7 @@ use app\models\Category;
 use app\models\ImageRel;
 use app\models\Product;
 use app\models\request\SearchProduct;
-use app\enum\PropertyType;
+use app\enum\PropertyTypeEnum;
 use app\utils\EnumFields;
 use Yii;
 use yii\rest\ActiveController;
@@ -31,7 +31,7 @@ class ProductController extends ActiveController
             //     ->addRule(['name'], 'string')
         ];
 
-        // dd(EnumFields::getValidateValues(PropertyType::class));
+        // dd(EnumFields::getValidateValues(PropertyTypeEnum::class));
         // dd(PropertiyType::INPUT);
         return $actions;
     }
@@ -39,8 +39,6 @@ class ProductController extends ActiveController
     public function actionCreate()
     {
         $product = new Product();
-
-        // $errors = [];
 
         if (!($product->load(Yii::$app->request->post(), '') && $product->validate())) {
             Yii::$app->response->statusCode = 422;
@@ -69,11 +67,5 @@ class ProductController extends ActiveController
         //     Yii::$app->response->statusCode = 422;
         //     return $errors;
         // }
-
-        // $product->save();
-
-        //     if ($model->load($this->request->post()) && $model->save()) {
-        //         return $this->redirect(['view', 'id' => $model->id]);
-        //     }
     }
 }

@@ -3,7 +3,7 @@
 namespace app\enum;
 
 
-enum PropertyType: string
+enum PropertyTypeEnum: string
 {
     case CHECKBOX = 'checkbox';
     case SELECT = 'select';
