@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e32354a2eaa3e5d23f6c0557ad3bc938",
+    "content-hash": "38458ae29486b691c87be8e2042c7606",
     "packages": [
         {
             "name": "bizley/jwt",
@@ -1595,6 +1595,129 @@
                 }
             ],
             "time": "2024-09-25T14:20:29+00:00"
+        },
+        {
+            "name": "tinify/tinify",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tinify/tinify-php.git",
+                "reference": "1d23f5069f450dc33dd062083a825be2baed48ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tinify/tinify-php/zipball/1d23f5069f450dc33dd062083a825be2baed48ea",
+                "reference": "1d23f5069f450dc33dd062083a825be2baed48ea",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "lib-curl": ">=7.20.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5 || ^8.4 || ^9.3"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "lib/Tinify.php",
+                    "lib/Tinify/Exception.php"
+                ],
+                "psr-4": {
+                    "Tinify\\": "lib/Tinify/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rolf Timmermans",
+                    "email": "rolftimmermans@voormedia.com"
+                }
+            ],
+            "description": "PHP client for the Tinify API. Tinify compresses your images intelligently. Read more at https://tinify.com.",
+            "homepage": "https://tinify.com/developers",
+            "keywords": [
+                "api",
+                "compress",
+                "images",
+                "tinify",
+                "tinyjpg",
+                "tinypng"
+            ],
+            "support": {
+                "email": "support@tinify.com",
+                "issues": "https://github.com/tinify/tinify-php/issues",
+                "source": "https://github.com/tinify/tinify-php/tree/1.6.1"
+            },
+            "time": "2023-02-21T14:51:21+00:00"
+        },
+        {
+            "name": "vintage/yii2-tinify",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Vintage-web-production/yii2-tinify.git",
+                "reference": "a793219c2a1761debfc69f889d23256d3a591330"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Vintage-web-production/yii2-tinify/zipball/a793219c2a1761debfc69f889d23256d3a591330",
+                "reference": "a793219c2a1761debfc69f889d23256d3a591330",
+                "shasum": ""
+            },
+            "require": {
+                "tinify/tinify": "~1.1",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "~2.3",
+                "codeception/specify": "*",
+                "codeception/verify": "*"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "vintage\\tinify\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Vladimir Kuprienko",
+                    "email": "vldmr.kuprienko@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Facade of Tinify API for Yii2 Framework",
+            "keywords": [
+                "api",
+                "component",
+                "compress",
+                "images",
+                "resize",
+                "tinify",
+                "tinyjpg",
+                "tinypng",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/vintage/yii2-tinify/issues",
+                "source": "https://github.com/vintage/yii2-tinify"
+            },
+            "time": "2018-03-12T18:59:07+00:00"
         },
         {
             "name": "yiisoft/yii2",

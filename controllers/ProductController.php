@@ -3,10 +3,12 @@
 namespace app\controllers;
 
 use app\models\Category;
+use app\models\ImageRel;
 use app\models\Product;
 use app\models\request\SearchProduct;
 use app\enum\PropertyType;
 use app\utils\EnumFields;
+use Yii;
 use yii\rest\ActiveController;
 
 class ProductController extends ActiveController
@@ -36,16 +38,42 @@ class ProductController extends ActiveController
 
     public function actionCreate()
     {
-        $model = new $this->modelClass();
+        $product = new Product();
 
-        dd($model->load(\Yii::$app->request->post(), ''));
-        // if ($this->request->isPost) {
+        // $errors = [];
+
+        if (!($product->load(Yii::$app->request->post(), '') && $product->validate())) {
+            Yii::$app->response->statusCode = 422;
+            return $product->getErrors();
+        }
+
+        $product->save();
+
+        if ($images = Yii::$app->request->getBodyParam('images')) {
+            foreach (explode(',', $images) as $image_id) {
+                $image = new ImageRel();
+
+                if ($image->load([
+                    'image_id' => $image_id,
+                    'reltable_id' => $product->id,
+                    'reltable_type' => Product::class
+                ], '') && $image->validate()) {
+                    $image->save();
+                }
+            }
+        }
+
+        // if ($properties = Yii::$app->request->getBodyParam('params'));
+
+        // if ($errors) {
+        //     Yii::$app->response->statusCode = 422;
+        //     return $errors;
+        // }
+
+        // $product->save();
+
         //     if ($model->load($this->request->post()) && $model->save()) {
         //         return $this->redirect(['view', 'id' => $model->id]);
         //     }
-        // } else {
-        //     $model->loadDefaultValues();
-        // }
-
     }
 }

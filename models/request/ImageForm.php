@@ -19,13 +19,13 @@ class ImageForm extends Model
 
     public function upload()
     {
-        $path_upload = 'uploads/images/';
+        $path_upload =  'uploads/images/';
         $path_with_date = \Lcobucci\Clock\SystemClock::fromUTC()->now()->format('Y/m/d');
 
         FileHelper::createDirectory($path_upload . $path_with_date);
         $file_path = $path_upload . $path_with_date . '/' . $this->imageFile->baseName . '.' . $this->imageFile->extension;
         $this->imageFile->saveAs($file_path);
 
-        return $file_path;
+        return \yii\helpers\Url::base(true) . '/' . $file_path;
     }
 }

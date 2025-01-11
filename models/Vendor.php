@@ -27,7 +27,6 @@ class Vendor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            // [['name'], 'safe'],
             [['name'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['name'], 'unique', 'targetClass' => \app\models\Vendor::class],

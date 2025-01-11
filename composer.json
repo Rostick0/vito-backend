@@ -20,7 +20,8 @@
         "yiisoft/yii2-symfonymailer": "~2.0.3",
         "yiisoft/yii2-faker": "^2.0",
         "bizley/jwt": "^4.1",
-        "lcobucci/clock": "^3.3"
+        "lcobucci/clock": "^3.3",
+        "vintage/yii2-tinify": "^2.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

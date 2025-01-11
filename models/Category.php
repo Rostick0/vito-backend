@@ -63,8 +63,8 @@ class Category extends \yii\db\ActiveRecord
     //  * {@inheritdoc}
     //  * @return VendorsQuery the active query used by this AR class.
     //  */
-    public static function find()
-    {
-        return new SearchCategory(get_called_class());
-    }
+    // public static function find()
+    // {
+    //     return new SearchCategory(get_called_class());
+    // }
 }

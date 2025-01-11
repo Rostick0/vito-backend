@@ -34,7 +34,7 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'price', 'category_id', 'vendor_id'], 'required'],
-            [['price'], 'number'],
+            [['price'], 'double'],
             [['is_show', 'category_id', 'vendor_id'], 'integer'],
             [['created_at'], 'safe'],
             [['name'], 'string', 'max' => 255],
@@ -54,17 +54,24 @@ class Product extends \yii\db\ActiveRecord
             'price' => 'Price',
             'is_show' => 'Is Show',
             'category_id' => 'Category ID',
+            'vendor_id' => 'Vendor ID',
             'created_at' => 'Created At',
         ];
     }
 
     /**
      * Gets query for [[Category]].
-     *
-     * @return \yii\db\ActiveQuery
      */
-    public function getCategory()
+    public function getCategory(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'category_id']);
+    }
+
+    /**
+     * Gets query for [[Vendor]].
+     */
+    public function getVendor(): \yii\db\ActiveQuery
+    {
+        return $this->hasOne(Vendor::class, ['id' => 'vendor_id']);
     }
 }
