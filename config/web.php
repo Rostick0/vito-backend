@@ -79,15 +79,14 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'category'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'product'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'vendor'],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'advertisement'],
                 [
                     'class' => 'yii\rest\UrlRule',
-                    // 'class' => 'yii\web\UploadedFile',
                     'controller' => 'image',
                     'extraPatterns' => [
                         'OPTIONS,POST upload' => 'upload'
                     ],
                 ],
-                // ['class' => 'yii\rest\UrlRule', 'controller' => 'image'],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'auth',

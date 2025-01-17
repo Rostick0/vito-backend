@@ -67,5 +67,7 @@ class ProductController extends ActiveController
         //     Yii::$app->response->statusCode = 422;
         //     return $errors;
         // }
+
+        return $product;
     }
 }
