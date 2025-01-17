@@ -61,7 +61,7 @@ class ProductController extends ActiveController
             }
         }
 
-        // if ($properties = Yii::$app->request->getBodyParam('params'));
+        // if ($properties = Yii::$app->request->getBodyParam('properties'));
 
         // if ($errors) {
         //     Yii::$app->response->statusCode = 422;
