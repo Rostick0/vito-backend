@@ -19,6 +19,7 @@ class ProductController extends ActiveController
     {
         $actions = parent::actions();
         unset($actions['create']);
+        unset($actions['update']);
         $actions['index']['dataFilter'] = [
             // 'class' => (new SearchProduct)->search(\Yii::$app->request->queryParams),
             'class' => \yii\data\ActiveDataFilter::class,
@@ -31,8 +32,6 @@ class ProductController extends ActiveController
             //     ->addRule(['name'], 'string')
         ];
 
-        // dd(EnumFields::getValidateValues(PropertyTypeEnum::class));
-        // dd(PropertiyType::INPUT);
         return $actions;
     }
 
@@ -47,26 +46,16 @@ class ProductController extends ActiveController
 
         $product->save();
 
-        if ($images = Yii::$app->request->getBodyParam('images')) {
-            foreach (explode(',', $images) as $image_id) {
-                $image = new ImageRel();
+        return $product;
+    }
 
-                if ($image->load([
-                    'image_id' => $image_id,
-                    'reltable_id' => $product->id,
-                    'reltable_type' => Product::class
-                ], '') && $image->validate()) {
-                    $image->save();
-                }
-            }
+    public function actionUpdate($id)
+    {
+        $product = Product::findOne($id);
+
+        if ($product->load(Yii::$app->request->getBodyParams(), '') && $product->validate()) {
+            $product->save();
         }
-
-        // if ($properties = Yii::$app->request->getBodyParam('properties'));
-
-        // if ($errors) {
-        //     Yii::$app->response->statusCode = 422;
-        //     return $errors;
-        // }
 
         return $product;
     }

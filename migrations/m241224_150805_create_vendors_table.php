@@ -15,6 +15,7 @@ class m241224_150805_create_vendors_table extends Migration
         $this->createTable('{{%vendors}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
+            'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
     }
 

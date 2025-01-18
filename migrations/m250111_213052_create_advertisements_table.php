@@ -17,9 +17,12 @@ class m250111_213052_create_advertisements_table extends Migration
             'title' => $this->string()->notNull(),
             'price' => $this->integer(),
             'product_id' => $this->integer(),
+            'user_id' => $this->integer(),
+            'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 
         $this->addForeignKey('fk-advertisements-product_id', 'advertisements', 'product_id', 'products', 'id', 'CASCADE');
+        $this->addForeignKey('fk-advertisements-user_id', 'advertisements', 'user_id', 'users', 'id', 'CASCADE');
     }
 
     /**
@@ -28,6 +31,7 @@ class m250111_213052_create_advertisements_table extends Migration
     public function safeDown()
     {
         $this->dropForeignKey('fk-advertisements-product_id', 'advertisements_properties');
+        $this->dropForeignKey('fk-advertisements-user_id', 'advertisements_properties');
 
         $this->dropTable('{{%advertisements}}');
     }

@@ -72,4 +72,28 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Vendor::class, ['id' => 'vendor_id']);
     }
+
+    public function extendsMutation(yii\web\Request $request): void
+    {
+        if ($images = $request->getBodyParam('images')) {
+            foreach (explode(',', $images) as $image_id) {
+                $image = new ImageRel();
+
+                if ($image->load([
+                    'image_id' => $image_id,
+                    'reltable_id' => $this->id,
+                    'reltable_type' => Product::class
+                ], '') && $image->validate()) {
+                    $image->save();
+                }
+            }
+        }
+
+        // if ($properties = Yii::$app->request->getBodyParam('properties'));
+
+        // if ($errors) {
+        //     Yii::$app->response->statusCode = 422;
+        //     return $errors;
+        // }
+    }
 }

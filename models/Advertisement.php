@@ -9,8 +9,9 @@ use Yii;
  *
  * @property int $id
  * @property string $title
- * @property int|null $price
- * @property int|null $product_id
+ * @property int $price
+ * @property int $product_id
+ * @property int $user_id
  *
  * @property AdvertisementProperty[] $advertisementProperties
  * @property Product $product
@@ -48,6 +49,7 @@ class Advertisement extends \yii\db\ActiveRecord
             'title' => 'Title',
             'price' => 'Price',
             'product_id' => 'Product ID',
+            'user_id' => 'User ID'
         ];
     }
 
@@ -65,5 +67,44 @@ class Advertisement extends \yii\db\ActiveRecord
     public function getProduct(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Product::class, ['id' => 'product_id']);
+    }
+
+    public function extendsMutation(yii\web\Request $request): void
+    {
+        if ($images = $request->getBodyParam('images')) {
+            ImageRel::deleteAll([
+                'reltable_id' => $this->id,
+                'reltable_type' => Advertisement::class
+            ]);
+
+            foreach (explode(',', $images) as $image_id) {
+                $image = new ImageRel();
+
+                if ($image->load([
+                    'image_id' => $image_id,
+                    'reltable_id' => $this->id,
+                    'reltable_type' => Advertisement::class
+                ], '') && $image->validate()) {
+                    $image->save();
+                }
+            }
+        }
+
+        if ($properties_products = $request->getBodyParam('properties_products')) {
+            AdvertisementProperty::deleteAll([
+                'advertisement_id' => $this->id,
+            ]);
+
+            foreach ($properties_products as $product_property_id) {
+                $advertisement_property = new AdvertisementProperty();
+
+                if ($advertisement_property->load([
+                    'product_property_id' => $product_property_id,
+                    'advertisement_id' => $this->id,
+                ], '') && $advertisement_property->validate()) {
+                    $advertisement_property->save();
+                }
+            }
+        }
     }
 }
