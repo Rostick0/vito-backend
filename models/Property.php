@@ -12,6 +12,7 @@ use Yii;
  * @property string $type
  * @property string|null $unit
  * @property int $property_type_id
+ * @property bool $is_filter
  *
  * @property ProductProperty[] $productProperties
  * @property PropertyCategory[] $propertyCategories
@@ -39,6 +40,7 @@ class Property extends \yii\db\ActiveRecord
             [['property_type_id'], 'integer'],
             [['name', 'unit'], 'string', 'max' => 255],
             [['property_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PropertyType::class, 'targetAttribute' => ['property_type_id' => 'id']],
+            [['is_filter'], 'boolean'],
         ];
     }
 
@@ -53,6 +55,7 @@ class Property extends \yii\db\ActiveRecord
             'type' => 'Type',
             'unit' => 'Unit',
             'property_type_id' => 'Property Type ID',
+            'is_filter' => 'Is Filter',
         ];
     }
 

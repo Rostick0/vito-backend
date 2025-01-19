@@ -20,6 +20,7 @@ class m250109_202420_create_properties_table extends Migration
             'type' => 'ENUM(' .  EnumFields::getValidateValues(PropertyTypeEnum::class, "'", "'") . ') NOT NULL', //$this->string()->notNull(), //checkbox,select,input
             'unit' => $this->string(),
             'property_type_id' => $this->integer()->notNull(),
+            'is_filter' => $this->boolean()->defaultValue(false),
         ]);
 
         $this->addForeignKey('fk-properties-property_type_id', 'properties', 'property_type_id', 'property_types', 'id', 'CASCADE');

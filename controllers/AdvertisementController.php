@@ -2,11 +2,7 @@
 
 namespace app\controllers;
 
-use app\models\Category;
-use app\models\ImageRel;
 use app\models\Advertisement;
-use app\models\AdvertisementProperty;
-use Throwable;
 use Yii;
 
 class AdvertisementController extends \yii\rest\ActiveController
@@ -62,7 +58,7 @@ class AdvertisementController extends \yii\rest\ActiveController
     public function actionUpdate($id)
     {
         $advertisement = Advertisement::findOne($id);
-
+        // dd($advertisement);
         $this->checkAccess('update', $advertisement);
 
         if (!($advertisement->load(

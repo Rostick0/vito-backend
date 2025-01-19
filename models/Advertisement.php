@@ -13,6 +13,7 @@ use Yii;
  * @property int $price
  * @property int $product_id
  * @property int $user_id
+ * @property DateTime $created_at
  *
  * @property AdvertisementProperty[] $advertisementProperties
  * @property Product $product
