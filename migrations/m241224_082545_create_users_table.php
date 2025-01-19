@@ -1,5 +1,7 @@
 <?php
 
+use app\enum\PropertyTypeEnum;
+use app\utils\EnumFields;
 use yii\db\Migration;
 
 /**
@@ -19,6 +21,7 @@ class m241224_082545_create_users_table extends Migration
             'password' => $this->string(),
             'raiting' => $this->float()->defaultValue(0),
             'is_confirm' => $this->boolean()->defaultValue(false),
+            'role' => 'ENUM(' .  EnumFields::getValidateValues(UserRoleEnum::class, "'", "'") . ') NOT NULL DEFAULT ' . UserRoleEnum::default->value,
             'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
     }

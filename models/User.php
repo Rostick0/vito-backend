@@ -11,6 +11,7 @@ use yii\web\ForbiddenHttpException;
  * @property int $id
  * @property string|null $email
  * @property string|null $password
+ * @property string $role
  * @property string|null $created_at
  *
  * @property Category $category

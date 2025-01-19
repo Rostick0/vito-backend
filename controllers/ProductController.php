@@ -40,7 +40,7 @@ class ProductController extends ActiveController
         $product = new Product();
 
         if (!($product->load(Yii::$app->request->post(), '') && $product->validate())) {
-            Yii::$app->response->statusCode = 422;
+            Yii::$app->response->setStatusCode(422);
             return $product->getErrors();
         }
 

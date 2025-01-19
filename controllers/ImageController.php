@@ -19,7 +19,7 @@ class ImageController extends Controller
         $image_form->imageFile = UploadedFile::getInstanceByName('imageFile');
 
         if (!$image_form->validate()) {
-            Yii::$app->response->statusCode = 422;
+            Yii::$app->response->setStatusCode(422);
             return $image_form->getErrors();
         }
 

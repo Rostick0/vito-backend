@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use DateTime;
 use Yii;
 
 /**
@@ -33,6 +34,7 @@ class Advertisement extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
+            [['product_id'], 'required', 'on' => 'create'],
             [['price', 'product_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
@@ -106,5 +108,21 @@ class Advertisement extends \yii\db\ActiveRecord
                 }
             }
         }
+    }
+
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->user_id = Yii::$app->user->id ?? 1;
+            } else {
+                $this->updated_at = (new \DateTimeImmutable())->format("Y-m-d H:i:s");
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }

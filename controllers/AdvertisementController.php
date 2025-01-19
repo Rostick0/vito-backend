@@ -6,11 +6,27 @@ use app\models\Category;
 use app\models\ImageRel;
 use app\models\Advertisement;
 use app\models\AdvertisementProperty;
+use Throwable;
 use Yii;
 
 class AdvertisementController extends \yii\rest\ActiveController
 {
     public $modelClass = Advertisement::class;
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+
+        // $behaviors['authenticator'] = [
+        //     'class' => \bizley\jwt\JwtHttpBearerAuth::class,
+        //     'except' => [
+        //         'index',
+        //         'view',
+        //     ],
+        // ];
+
+        return $behaviors;
+    }
 
     public function actions()
     {
@@ -29,10 +45,10 @@ class AdvertisementController extends \yii\rest\ActiveController
         $advertisement = new Advertisement();
 
         if (!($advertisement->load(
-            [...Yii::$app->request->post(), 'user_id' => Yii::$app->user->id],
+            Yii::$app->request->post(),
             ''
         ) && $advertisement->validate())) {
-            Yii::$app->response->statusCode = 422;
+            Yii::$app->response->setStatusCode(422);
             return $advertisement->getErrors();
         }
 
@@ -47,15 +63,13 @@ class AdvertisementController extends \yii\rest\ActiveController
     {
         $advertisement = Advertisement::findOne($id);
 
-        if ($advertisement->user_id !== Yii::$app->user->id) {
-            return;
-        }
+        $this->checkAccess('update', $advertisement);
 
         if (!($advertisement->load(
             Yii::$app->request->getBodyParams(),
             ''
         ) && $advertisement->validate())) {
-            Yii::$app->response->statusCode = 422;
+            Yii::$app->response->setStatusCode(422);
             return $advertisement->getErrors();
         }
 
@@ -68,6 +82,11 @@ class AdvertisementController extends \yii\rest\ActiveController
 
     public function checkAccess($action, $model = null, $params = [])
     {
-        // dd($action);
+        if (
+            array_search($action, ['update', 'delete']) !== false &&
+            !(Yii::$app->user->identity->role === 'admin' || Yii::$app->user?->id === $model?->user_id)
+        ) {
+            throw new \yii\web\ForbiddenHttpException('No access');
+        }
     }
 }

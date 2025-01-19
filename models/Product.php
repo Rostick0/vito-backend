@@ -92,7 +92,7 @@ class Product extends \yii\db\ActiveRecord
         // if ($properties = Yii::$app->request->getBodyParam('properties'));
 
         // if ($errors) {
-        //     Yii::$app->response->statusCode = 422;
+        //     Yii::$app->response->setStatusCode(422);
         //     return $errors;
         // }
     }
