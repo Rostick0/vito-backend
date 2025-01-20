@@ -16,8 +16,9 @@ class m250109_203846_create_product_properties_table extends Migration
             'id' => $this->primaryKey(),
             'value' => $this->integer(),
             'property_id' => $this->integer()->notNull(),
-            'property_value_id' => $this->integer()->notNull(),
+            'property_value_id' => $this->integer(),
             'product_id' => $this->integer()->notNull(),
+            'is_specified' => $this->boolean(),
         ]);
 
         $this->addForeignKey('fk-product_properties-property_id', 'product_properties', 'property_id', 'properties', 'id', 'CASCADE');
@@ -33,7 +34,7 @@ class m250109_203846_create_product_properties_table extends Migration
         $this->dropForeignKey('fk-product_properties-property_id', 'product_properties');
         $this->dropForeignKey('fk-product_properties-property_value_id', 'product_properties');
         $this->dropForeignKey('fk-product_properties-product_id', 'product_properties');
-       
+
         $this->dropTable('{{%product_properties}}');
     }
 }

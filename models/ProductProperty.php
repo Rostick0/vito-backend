@@ -13,9 +13,9 @@ use Yii;
  * @property int $property_value_id
  * @property int $product_id
  *
- * @property Products $product
- * @property Properties $property
- * @property PropertyValues $propertyValue
+ * @property Product $product
+ * @property Property $property
+ * @property PropertyValue $propertyValue
  */
 class ProductProperty extends \yii\db\ActiveRecord
 {
@@ -34,7 +34,8 @@ class ProductProperty extends \yii\db\ActiveRecord
     {
         return [
             [['value', 'property_id', 'property_value_id', 'product_id'], 'integer'],
-            [['property_id', 'property_value_id', 'product_id'], 'required'],
+            [['property_id', 'product_id'], 'required'],
+            [['is_specified'], 'boolean'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
             [['property_id'], 'exist', 'skipOnError' => true, 'targetClass' => Property::class, 'targetAttribute' => ['property_id' => 'id']],
             [['property_value_id'], 'exist', 'skipOnError' => true, 'targetClass' => PropertyValue::class, 'targetAttribute' => ['property_value_id' => 'id']],

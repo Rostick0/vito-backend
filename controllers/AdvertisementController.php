@@ -58,7 +58,7 @@ class AdvertisementController extends \yii\rest\ActiveController
     public function actionUpdate($id)
     {
         $advertisement = Advertisement::findOne($id);
-        // dd($advertisement);
+
         $this->checkAccess('update', $advertisement);
 
         if (!($advertisement->load(
