@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\request\VendorQuery;
 use app\models\Vendor;
 use yii\rest\ActiveController;
 use yii\web\NotFoundHttpException;
@@ -13,23 +14,17 @@ use yii\filters\VerbFilter;
 class VendorController extends ActiveController
 {
     public $modelClass = Vendor::class;
-    // /**
-    //  * @inheritDoc
-    //  */
-    // public function behaviors()
-    // {
-    //     return array_merge(
-    //         parent::behaviors(),
-    //         [
-    //             'verbs' => [
-    //                 'class' => VerbFilter::className(),
-    //                 'actions' => [
-    //                     'delete' => ['POST'],
-    //                 ],
-    //             ],
-    //         ]
-    //     );
-    // }
+
+    public function actions()
+    {
+        $actions = parent::actions();
+        $actions['index']['dataFilter'] = [
+            'class' => \yii\data\ActiveDataFilter::class,
+            'searchModel' => VendorQuery::class,
+        ];
+
+        return $actions;
+    }
 
     // /**
     //  * Lists all Vendor models.
@@ -44,19 +39,6 @@ class VendorController extends ActiveController
     //     return $this->render('index', [
     //         'searchModel' => $searchModel,
     //         'dataProvider' => $dataProvider,
-    //     ]);
-    // }
-
-    // /**
-    //  * Displays a single Vendor model.
-    //  * @param int $id ID
-    //  * @return string
-    //  * @throws NotFoundHttpException if the model cannot be found
-    //  */
-    // public function actionView($id)
-    // {
-    //     return $this->render('view', [
-    //         'model' => $this->findModel($id),
     //     ]);
     // }
 
@@ -100,35 +82,5 @@ class VendorController extends ActiveController
     //     return $this->render('update', [
     //         'model' => $model,
     //     ]);
-    // }
-
-    // /**
-    //  * Deletes an existing Vendor model.
-    //  * If deletion is successful, the browser will be redirected to the 'index' page.
-    //  * @param int $id ID
-    //  * @return \yii\web\Response
-    //  * @throws NotFoundHttpException if the model cannot be found
-    //  */
-    // public function actionDelete($id)
-    // {
-    //     $this->findModel($id)->delete();
-
-    //     return $this->redirect(['index']);
-    // }
-
-    // /**
-    //  * Finds the Vendor model based on its primary key value.
-    //  * If the model is not found, a 404 HTTP exception will be thrown.
-    //  * @param int $id ID
-    //  * @return Vendor the loaded model
-    //  * @throws NotFoundHttpException if the model cannot be found
-    //  */
-    // protected function findModel($id)
-    // {
-    //     if (($model = Vendor::findOne(['id' => $id])) !== null) {
-    //         return $model;
-    //     }
-
-    //     throw new NotFoundHttpException('The requested page does not exist.');
     // }
 }

@@ -16,6 +16,8 @@ class m250111_213052_create_advertisements_table extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string()->notNull(),
             'price' => $this->integer(),
+            'description' => $this->text(),
+            'is_show' => $this->boolean(),
             'product_id' => $this->integer(),
             'user_id' => $this->integer(),
             'created_at' => $this->dateTime(),

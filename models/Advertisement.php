@@ -34,10 +34,12 @@ class Advertisement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title'], 'required'],
+            [['title', 'is_show'], 'required'],
             [['product_id'], 'required', 'on' => 'create'],
             [['price', 'product_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
+            [['description'], 'string', 'max' => 65536],
+            [['is_show'], 'boolean'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
         ];
     }

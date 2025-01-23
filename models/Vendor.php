@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\models\request\VendorsQuery;
+use app\models\request\VendorQuery;
 use Yii;
 
 /**
@@ -43,13 +43,4 @@ class Vendor extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
-
-    // /**
-    //  * {@inheritdoc}
-    //  * @return VendorsQuery the active query used by this AR class.
-    //  */
-    // public static function find()
-    // {
-    //     return new VendorsQuery(get_called_class());
-    // }
 }

@@ -31,6 +31,7 @@ class AdvertisementController extends \yii\rest\ActiveController
         unset($actions['update']);
         $actions['index']['dataFilter'] = [
             'class' => \yii\data\ActiveDataFilter::class,
+            'searchModel' => $this->modelClass,
         ];
 
         return $actions;

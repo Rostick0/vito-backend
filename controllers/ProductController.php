@@ -2,10 +2,9 @@
 
 namespace app\controllers;
 
-use app\models\Category;
 use app\models\ImageRel;
 use app\models\Product;
-use app\models\request\SearchProduct;
+use app\models\request\ProductQuery;
 use app\enum\PropertyTypeEnum;
 use app\utils\EnumFields;
 use Yii;
@@ -21,16 +20,17 @@ class ProductController extends ActiveController
         unset($actions['create']);
         unset($actions['update']);
         $actions['index']['dataFilter'] = [
-            // 'class' => (new SearchProduct)->search(\Yii::$app->request->queryParams),
-            'class' => \yii\data\ActiveDataFilter::class,
-            'searchModel' => SearchProduct::class,
+            'class' => (new ProductQuery)->search(Yii::$app->request->queryParams),
+            // 'class' => \yii\data\ActiveDataFilter::class,
+            'searchModel' => ProductQuery::class,
             // 'attributeMap' => [
-            //     'categoryName' => '{{' . Category::tableName() . '}}.[[name]]',
+                // 'productPropertiesName' => '{{' . \app\models\ProductProperty::tableName() . '}}.[[name]]',
+                // 'categoryName' => '{{' . \app\models\Category::tableName() . '}}.[[name]]',
+                // 'categoryName' => '{{' . \app\models\Category::tableName() . '}}.[[name]]',
             // ],
-            // 'searchModel' => (new \yii\base\DynamicModel(['id', 'name']))
-            //     ->addRule(['id'], 'integer')
-            //     ->addRule(['name'], 'string')
         ];
+
+        // dd($actions['index']['dataFilter']);
 
         return $actions;
     }

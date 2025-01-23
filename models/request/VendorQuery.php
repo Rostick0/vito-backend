@@ -9,7 +9,8 @@ use app\models\Vendor;
  *
  * @see Vendor
  */
-class VendorsQuery extends \yii\db\ActiveQuery
+// \yii\db\ActiveQuery
+class VendorQuery extends Vendor
 {
     /*public function active()
     {
@@ -18,19 +19,13 @@ class VendorsQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return Vendor[]|array
      */
-    public function all($db = null)
+    public function rules()
     {
-        return parent::all($db);
-    }
-
-    /**
-     * {@inheritdoc}
-     * @return Vendor|array|null
-     */
-    public function one($db = null)
-    {
-        return parent::one($db);
+        return [
+            [['name'], 'trim'],
+            [['id'], 'integer'],
+            [['name'], 'string', 'max' => 255],
+        ];
     }
 }

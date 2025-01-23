@@ -13,6 +13,7 @@ use Yii;
  * @property int|null $is_show
  * @property int $category_id
  * @property int $vendor_id
+ * is_show
  * @property string|null $created_at
  *
  * @property Category $category
@@ -37,6 +38,7 @@ class Product extends \yii\db\ActiveRecord
             // [['price'], 'double'],
             [['category_id', 'vendor_id'], 'integer'],
             [['created_at'], 'safe'],
+            [['is_show'], 'boolean'],
             [['name'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
             [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
@@ -71,6 +73,14 @@ class Product extends \yii\db\ActiveRecord
     public function getVendor(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Vendor::class, ['id' => 'vendor_id']);
+    }
+
+    /**
+     * Gets query for [[ProductProperty]].
+     */
+    public function getProductProperties(): \yii\db\ActiveQuery
+    {
+        return $this->hasMany(ProductProperty::class, ['product_id' => 'id']);
     }
 
     public function extendsMutation(yii\web\Request $request): void

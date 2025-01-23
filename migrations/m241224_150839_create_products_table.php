@@ -17,6 +17,7 @@ class m241224_150839_create_products_table extends Migration
             'name' => $this->string()->notNull(),
             'category_id' => $this->integer()->notNull(),
             'vendor_id' => $this->integer()->notNull(),
+            'is_show' => $this->boolean(),
             'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 
