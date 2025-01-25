@@ -60,7 +60,6 @@ class FilterSearch
         foreach ($params[$this->name_query_param] as $key => $value) {
             if (str_contains($key, '.')) {
                 $arr_key = explode('.', $key);
-                if (!ProtectSearch::issetAttribute($arr_key[count($arr_key) - 1], $query)) continue;
                 $relat_key = implode(
                     '.',
                     array_splice($arr_key, 0, -1)
@@ -68,14 +67,20 @@ class FilterSearch
 
                 $query->joinWith([
                     $relat_key => function ($query) use ($value, $relat_key, $key) {
+                        $attribute = str_replace($relat_key . '.', '', $key);
+                        // dd(ProtectSearch::getModelAttributes($query), $attribute);
+                        // ProtectSearch::issetAttribute()
+                        if (!ProtectSearch::issetAttribute($attribute, $query)) return;
+
                         $this->setWhere(
                             $value,
                             $query,
-                            str_replace($relat_key, $query->modelClass::tableName(), $key)
+                            $query->modelClass::tableName() . ".$attribute"
                         );
                     }
                 ]);
             } else {
+                if (!ProtectSearch::issetAttribute($key, $query)) return;
                 $this->setWhere($value, $query, $query->modelClass::tableName() . '.' . $key);
             }
         }
