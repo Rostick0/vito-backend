@@ -18,7 +18,6 @@ class m250109_203846_create_product_properties_table extends Migration
             'property_id' => $this->integer()->notNull(),
             'property_value_id' => $this->integer(),
             'product_id' => $this->integer()->notNull(),
-            'is_specified' => $this->boolean(),
         ]);
 
         $this->addForeignKey('fk-product_properties-property_id', 'product_properties', 'property_id', 'properties', 'id', 'CASCADE');

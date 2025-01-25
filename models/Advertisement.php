@@ -61,7 +61,7 @@ class Advertisement extends \yii\db\ActiveRecord
 
     public function extraFields()
     {
-        return ['advertisementProperties', 'product',];
+        return ['advertisementProperties', 'product'];
     }
 
     /**

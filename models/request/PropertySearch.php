@@ -3,8 +3,7 @@
 namespace app\models\request;
 
 use app\models\Category;
-use app\models\Product;
-use app\models\Vendor;
+use app\models\Property;
 use app\utils\Filter\FilterSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -21,35 +20,26 @@ use yii\data\ActiveDataProvider;
  * @property Category $category
  */
 // \yii\base\Model
-class ProductSearch extends Product
+class PropertySearch extends Property
 {
-    // public $id;
-    // public $name;
-    // public $category_id;
-    // public $category;
-    // public $categoryName;
-    // public $productProperties;
-    // public $productPropertiesName;
-    // public $filters = [];
-
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'vendor_id', 'category_id'], 'integer'],
-            [['is_show'], 'boolean'],
-            [['created_at'], 'safe'],
-            [['name'], 'string', 'max' => 255],
-            [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            // [['id', 'vendor_id', 'category_id'], 'integer'],
+            // [['is_show'], 'boolean'],
+            // [['created_at'], 'safe'],
+            // [['name'], 'string', 'max' => 255],
+            // [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
+            // [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
     public function search($params)
     {
-        $query = Product::find();
+        $query = Property::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,7 +47,6 @@ class ProductSearch extends Product
                 'pageSize' => 20,
             ],
         ]);
-
 
         if (isset($params['filter'])) {
             (new FilterSearch)->run($query, $params);

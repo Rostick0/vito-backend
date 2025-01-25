@@ -36,9 +36,9 @@ class Property extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'type', 'property_type_id'], 'required'],
-            [['type'], 'string'],
             [['property_type_id'], 'integer'],
-            [['name', 'unit'], 'string', 'max' => 255],
+            [['name', 'unit', 'type'], 'string', 'max' => 255],
+            [['is_specified'], 'boolean'],
             [['property_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => PropertyType::class, 'targetAttribute' => ['property_type_id' => 'id']],
             [['is_filter'], 'boolean'],
         ];
