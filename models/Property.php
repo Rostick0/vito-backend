@@ -59,9 +59,14 @@ class Property extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['productProperties', 'propertyCategories', 'propertyType', 'propertyValues'];
+    }
+
     /**
      * Gets query for [[ProductProperty]].
-ƒ     */
+     */
     public function getProductProperties(): \yii\db\ActiveQuery
     {
         return $this->hasMany(ProductProperty::class, ['property_id' => 'id']);

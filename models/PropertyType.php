@@ -44,6 +44,11 @@ class PropertyType extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['properties'];
+    }
+
     /**
      * Gets query for [[Property]].
      */

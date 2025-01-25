@@ -49,6 +49,11 @@ class Category extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['products'];
+    }
+
     /**
      * Gets query for [[Products]].
      *

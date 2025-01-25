@@ -59,6 +59,11 @@ class Product extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['category', 'vendor', 'productProperties'];
+    }
+
     /**
      * Gets query for [[Category]].
      */

@@ -50,6 +50,12 @@ class ImageRel extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['image'];
+    }
+
+
     /**
      * Gets query for [[Image]].
      *

@@ -49,6 +49,11 @@ class PropertyCategory extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['category', 'property'];
+    }
+
     /**
      * Gets query for [[Category]].
      */

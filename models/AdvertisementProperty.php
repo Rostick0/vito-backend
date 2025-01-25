@@ -50,6 +50,11 @@ class AdvertisementProperty extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['advertisement', 'property', 'propertyValue'];
+    }
+
     /**
      * Gets query for [[Advertisement]].
      */

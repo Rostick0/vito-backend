@@ -1,6 +1,8 @@
 <?php
 
-namespace app\utils;
+namespace app\utils\Filter;
+
+use app\utils\ProtectSearch;
 
 class FilterSearch
 {

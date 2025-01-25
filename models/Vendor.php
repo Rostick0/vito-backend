@@ -43,4 +43,12 @@ class Vendor extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+
+    /**
+     * Gets query for [[Product]].
+     */
+    public function getProducts(): \yii\db\ActiveQuery
+    {
+        return $this->hasMany(Product::class, ['vendor_id' => 'id']);
+    }
 }

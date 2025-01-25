@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\models\ImageRel;
 use app\models\Product;
-use app\models\request\ProductQuery;
+use app\models\request\ProductSearch;
 use app\enum\PropertyTypeEnum;
 use app\utils\EnumFields;
 use Yii;
@@ -26,7 +26,7 @@ class ProductController extends ActiveController
 
     public function prepareDataProvider()
     {
-        return (new ProductQuery())
+        return (new ProductSearch())
             ->search(Yii::$app->request->queryParams);
     }
 
