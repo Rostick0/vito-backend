@@ -19,20 +19,15 @@ class ProductController extends ActiveController
         $actions = parent::actions();
         unset($actions['create']);
         unset($actions['update']);
-        $actions['index']['dataFilter'] = [
-            'class' => (new ProductQuery)->search(Yii::$app->request->queryParams),
-            // 'class' => \yii\data\ActiveDataFilter::class,
-            'searchModel' => ProductQuery::class,
-            // 'attributeMap' => [
-                // 'productPropertiesName' => '{{' . \app\models\ProductProperty::tableName() . '}}.[[name]]',
-                // 'categoryName' => '{{' . \app\models\Category::tableName() . '}}.[[name]]',
-                // 'categoryName' => '{{' . \app\models\Category::tableName() . '}}.[[name]]',
-            // ],
-        ];
-
-        // dd($actions['index']['dataFilter']);
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
 
         return $actions;
+    }
+
+    public function prepareDataProvider()
+    {
+        return (new ProductQuery())
+            ->search(Yii::$app->request->queryParams);
     }
 
     public function actionCreate()

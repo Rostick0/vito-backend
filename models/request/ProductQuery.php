@@ -5,6 +5,7 @@ namespace app\models\request;
 use app\models\Category;
 use app\models\Product;
 use app\models\Vendor;
+use app\utils\FilterSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -48,35 +49,26 @@ class ProductQuery extends Product
 
     public function search($params)
     {
-        // $query = Product::find()->with(['productProperties']);
-        // dd(Product::getTableSchema());
         $query = Product::find()
-            ->joinWith('productProperties')
+            // ->joinWith('productProperties')
             // ->with('productProperties')
             // ->where(['product_properties.id' => '1']);
-            // ->where(['product_properties.id' => 1])
         ;
-        $query = $query->andWhere([Product::tableName() . '.id' => '1']);
+        // $query = $query->andWhere([Product::tableName() . '.id' => '1']);
 
-        $query = $query->andWhere(['product_properties.id' => '4607']);
+        // $query = $query->andWhere(['product_properties.id' => '4607']);
         // $query->andWhere([Product::tableName() . '.id' => '2']);
-
-        if (isset($params['filter'])) {
-            foreach ($params['filter'] as $i => $param) {
-                dd($i, $param);
-            }
-        }
-        dd($query->all());
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        // dd($params);
+        if (isset($params['filter'])) {
+            (new FilterSearch())->run($query, $params);
+        }
 
-        $this->load($params);
-
-        $this->validate();
-        // dd($dataProvider);
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
 
         return $dataProvider;
     }
