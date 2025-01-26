@@ -8,9 +8,7 @@ use Yii;
  * This is the model class for table "advertisement_properties".
  *
  * @property int $id
- * @property int|null $value
- * @property int $property_id
- * @property int $property_value_id
+ * @property int $product_property_id
  * @property int $advertisement_id
  *
  * @property Advertisement $advertisement

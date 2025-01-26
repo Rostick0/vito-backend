@@ -56,6 +56,7 @@ class Property extends \yii\db\ActiveRecord
             'unit' => 'Unit',
             'property_type_id' => 'Property Type ID',
             'is_filter' => 'Is Filter',
+            'is_specified' => 'Is Specified',
         ];
     }
 

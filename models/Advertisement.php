@@ -11,6 +11,7 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property int $price
+ * @property $is_show
  * @property int $product_id
  * @property int $user_id
  * @property DateTime $created_at
@@ -35,7 +36,7 @@ class Advertisement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'is_show'], 'required'],
+            [['title', 'price'], 'required'],
             [['product_id'], 'required', 'on' => 'create'],
             [['price', 'product_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
@@ -107,7 +108,8 @@ class Advertisement extends \yii\db\ActiveRecord
             ]);
 
             foreach ($properties_products as $product_property_id) {
-                $advertisement_property = new AdvertisementProperty();
+            // dd($product_property_id);
+            $advertisement_property = new AdvertisementProperty();
 
                 if ($advertisement_property->load([
                     'product_property_id' => $product_property_id,

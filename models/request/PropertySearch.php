@@ -29,9 +29,9 @@ class PropertySearch extends Property
     {
         return [
             // [['id', 'vendor_id', 'category_id'], 'integer'],
-            // [['is_show'], 'boolean'],
+            [['is_specified', 'is_filter'], 'boolean'],
             // [['created_at'], 'safe'],
-            // [['name'], 'string', 'max' => 255],
+            [['name', 'unit'], 'string', 'max' => 255],
             // [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
             // [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -52,7 +52,7 @@ class PropertySearch extends Property
             (new FilterSearch)->run($query, $params);
         }
 
-        if (!($this->validate() && $this->load($params))) {
+        if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
 
