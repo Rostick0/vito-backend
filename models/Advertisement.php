@@ -3,6 +3,7 @@
 namespace app\models;
 
 use DateTime;
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
@@ -20,14 +21,31 @@ use Yii;
  * @property AdvertisementProperty[] $advertisementProperties
  * @property Product $product
  */
-class Advertisement extends \yii\db\ActiveRecord
+class Advertisement extends ActiveRecord
 {
+    public $mainImage;
+
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
         return 'advertisements';
+    }
+
+    public function behaviors()
+    {
+        return [
+            'mainImage' => [
+                'class' => \yii\behaviors\AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => 'mainImage',
+                ],
+                'value' => function ($event) {
+                    return $this->getImages()->one()?->getRelation('image')?->one();
+                },
+            ],
+        ];
     }
 
     /**
@@ -38,11 +56,13 @@ class Advertisement extends \yii\db\ActiveRecord
         return [
             [['title', 'price'], 'required'],
             [['product_id'], 'required', 'on' => 'create'],
-            [['price', 'product_id'], 'integer'],
+            [['price', 'product_id', 'office_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 65536],
             [['is_show'], 'boolean'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
+            [['office_id'], 'exist', 'skipOnError' => true, 'targetClass' => Office::class, 'targetAttribute' => ['office_id' => 'id']],
+            [['mainImage'], 'safe']
         ];
     }
 
@@ -62,7 +82,7 @@ class Advertisement extends \yii\db\ActiveRecord
 
     public function extraFields()
     {
-        return ['advertisementProperties', 'product'];
+        return ['advertisementProperties', 'images', 'mainImage', 'product'];
     }
 
     /**
@@ -71,6 +91,22 @@ class Advertisement extends \yii\db\ActiveRecord
     public function getAdvertisementProperties(): \yii\db\ActiveQuery
     {
         return $this->hasMany(AdvertisementProperty::class, ['advertisement_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Image]].
+     */
+    // public function getMainImage(): \yii\db\ActiveQuery
+    // {
+    //     return $this->getImages()->first;
+    // }
+
+    /**
+     * Gets query for [[Image]].
+     */
+    public function getImages(): \yii\db\ActiveQuery
+    {
+        return $this->hasMany(ImageRel::class, ['reltable_id' => 'id'])->where(['reltable_type' => $this::class]);
     }
 
     /**
@@ -108,8 +144,8 @@ class Advertisement extends \yii\db\ActiveRecord
             ]);
 
             foreach ($properties_products as $product_property_id) {
-            // dd($product_property_id);
-            $advertisement_property = new AdvertisementProperty();
+                // dd($product_property_id);
+                $advertisement_property = new AdvertisementProperty();
 
                 if ($advertisement_property->load([
                     'product_property_id' => $product_property_id,
