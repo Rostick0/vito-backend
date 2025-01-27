@@ -82,7 +82,7 @@ class Advertisement extends ActiveRecord
 
     public function extraFields()
     {
-        return ['advertisementProperties', 'images', 'mainImage', 'product'];
+        return ['advertisementProperties', 'images', 'mainImage', 'product', 'user'];
     }
 
     /**
@@ -115,6 +115,14 @@ class Advertisement extends ActiveRecord
     public function getProduct(): \yii\db\ActiveQuery
     {
         return $this->hasOne(Product::class, ['id' => 'product_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     */
+    public function getUser(): \yii\db\ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function extendsMutation(yii\web\Request $request): void

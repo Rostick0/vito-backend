@@ -31,6 +31,7 @@ class AdvertisementProperty extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['product_property_id', 'advertisement_id'], 'required'],
             [['product_property_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductProperty::class, 'targetAttribute' => ['product_property_id' => 'id']],
             [['advertisement_id'], 'exist', 'skipOnError' => true, 'targetClass' => Advertisement::class, 'targetAttribute' => ['advertisement_id' => 'id']],
         ];
@@ -50,7 +51,7 @@ class AdvertisementProperty extends \yii\db\ActiveRecord
 
     public function extraFields()
     {
-        return ['advertisement', 'property', 'propertyValue'];
+        return ['advertisement', 'productProperty'];
     }
 
     /**
@@ -64,16 +65,8 @@ class AdvertisementProperty extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Property]].
      */
-    public function getProperty(): \yii\db\ActiveQuery
+    public function getProductProperty(): \yii\db\ActiveQuery
     {
-        return $this->hasOne(Property::class, ['id' => 'property_id']);
-    }
-
-    /**
-     * Gets query for [[PropertyValue]].
-     */
-    public function getPropertyValue(): \yii\db\ActiveQuery
-    {
-        return $this->hasOne(PropertyValue::class, ['id' => 'property_value_id']);
+        return $this->hasOne(ProductProperty::class, ['id' => 'product_property_id']);
     }
 }

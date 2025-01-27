@@ -61,7 +61,15 @@ class Product extends \yii\db\ActiveRecord
 
     public function extraFields()
     {
-        return ['category', 'vendor', 'productProperties'];
+        return ['images', 'category', 'vendor', 'productProperties'];
+    }
+
+    /**
+     * Gets query for [[Image]].
+     */
+    public function getImages(): \yii\db\ActiveQuery
+    {
+        return $this->hasMany(ImageRel::class, ['reltable_id' => 'id'])->where(['reltable_type' => $this::class]);
     }
 
     /**
