@@ -2,8 +2,11 @@
 
 namespace app\models\request;
 
+use app\models\Advertisement;
 use app\models\Category;
+use app\models\Office;
 use app\models\Product;
+use app\models\User;
 use app\models\Vendor;
 use app\utils\Filter\FilterSearch;
 use Yii;
@@ -21,7 +24,7 @@ use yii\data\ActiveDataProvider;
  * @property Category $category
  */
 // \yii\base\Model
-class ProductSearch extends Product
+class AdvertisementSearch extends Advertisement
 {
     // public $id;
     // public $name;
@@ -38,24 +41,26 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'vendor_id', 'category_id'], 'integer'],
-            [['is_show'], 'boolean'],
-            [['created_at'], 'safe'],
-            [['name'], 'string', 'max' => 255],
-            [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['title'], 'string', 'max' => 255],
+            [['id', 'product_id', 'office_id', 'user_id', 'price'], 'integer'],
+            [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
+            [['office_id'], 'exist', 'skipOnError' => true, 'targetClass' => Office::class, 'targetAttribute' => ['office_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            // 'created_at' => $this->dateTime(),
+            // 'updated_at' => $this->dateTime(),
         ];
     }
 
     public function search($params)
     {
-        $query = $this::find();
+        $query = $this::find()->with('images');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 20,
             ],
+            // 'expand' => $params['expand']
         ]);
 
 

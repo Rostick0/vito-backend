@@ -2,7 +2,7 @@
 
 namespace app\models;
 
-use app\models\request\SearchCategory;
+use app\models\request\CategorySearch;
 use Yii;
 
 /**
@@ -70,6 +70,6 @@ class Category extends \yii\db\ActiveRecord
     //  */
     // public static function find()
     // {
-    //     return new SearchCategory(get_called_class());
+    //     return new CategorySearch(get_called_class());
     // }
 }

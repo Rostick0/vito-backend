@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Advertisement;
+use app\models\request\AdvertisementSearch;
 use Yii;
 
 class AdvertisementController extends \yii\rest\ActiveController
@@ -29,12 +30,24 @@ class AdvertisementController extends \yii\rest\ActiveController
         $actions = parent::actions();
         unset($actions['create']);
         unset($actions['update']);
-        $actions['index']['dataFilter'] = [
-            'class' => \yii\data\ActiveDataFilter::class,
-            'searchModel' => $this->modelClass,
-        ];
+        $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
+        // $actions['index']['serializer'] = [
+        //     'class' => 'yii\rest\Serializer',
+        //     'expandParam' => 'expand', // Параметр для управления expand
+        //     // 'fieldsParam' => 'fields', // Для выборки определённых полей
+        // ];
+        // $actions['index']['dataFilter'] = [
+        //     'class' => \yii\data\ActiveDataFilter::class,
+        //     'searchModel' => $this->modelClass,
+        // ];
 
         return $actions;
+    }
+
+    public function prepareDataProvider()
+    {
+        return (new AdvertisementSearch())
+            ->search(Yii::$app->request->queryParams);
     }
 
     public function actionCreate()

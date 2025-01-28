@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\Category;
-use app\models\request\SearchCategory;
+use app\models\request\CategorySearch;
 use yii\rest\ActiveController;
 
 /**
@@ -23,7 +23,7 @@ class CategoryController extends ActiveController
         $actions = parent::actions();
         $actions['index']['dataFilter'] = [
             'class' => \yii\data\ActiveDataFilter::class,
-            'searchModel' => SearchCategory::class,
+            'searchModel' => CategorySearch::class,
         ];
 
         return $actions;

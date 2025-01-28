@@ -165,7 +165,6 @@ class Advertisement extends ActiveRecord
         }
     }
 
-
     public function beforeSave($insert)
     {
         if (parent::beforeSave($insert)) {

@@ -15,7 +15,7 @@ use Yii;
  *
  * @property Product[] $products
  */
-class SearchCategory extends Category
+class CategorySearch extends Category
 {
     public $id;
     public $name;
