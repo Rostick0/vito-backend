@@ -90,7 +90,13 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'product'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'property', 'only' => ['index']],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'product-property', 'only' => ['index']],
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'vendor'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'vendor',
+                    'extraPatterns' => [
+                        'GET name/<name>' => 'name'
+                    ]
+                ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'office'],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'advertisement'],
                 [

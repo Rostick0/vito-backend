@@ -44,6 +44,19 @@ class Vendor extends \yii\db\ActiveRecord
         ];
     }
 
+    public function extraFields()
+    {
+        return ['image', 'products'];
+    }
+
+    /**
+     * Gets query for [[Image]].
+     */
+    public function getImage(): \yii\db\ActiveQuery
+    {
+        return $this->hasOne(ImageRel::class, ['reltable_id' => 'id'])->where(['reltable_type' => $this::class]);
+    }
+
     /**
      * Gets query for [[Product]].
      */

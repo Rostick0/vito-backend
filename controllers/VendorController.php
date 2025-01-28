@@ -26,6 +26,13 @@ class VendorController extends ActiveController
         return $actions;
     }
 
+    public function actionName(string $name)
+    {
+        $vendor = Vendor::findOne(['name' => $name]);
+
+        return $vendor;
+    }
+
     // /**
     //  * Lists all Vendor models.
     //  *
