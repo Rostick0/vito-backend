@@ -63,11 +63,10 @@ class AdvertisementSearch extends Advertisement
         ]);
 
 
-        // if (isset($params['filter'])) {
-        //     (new FilterSearch)->run($query, $params);
-        // }
+        if (isset($params['filter'])) {
+            (new FilterSearch)->run($query, $params);
+        }
 
-        // dd($this->load($params['filter']), $this->validate());
         if (!($this->validate() && $this->load($params))) {
             return $dataProvider;
         }
