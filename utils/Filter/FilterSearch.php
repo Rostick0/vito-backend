@@ -68,8 +68,6 @@ class FilterSearch
                 $query->joinWith([
                     $relat_key => function ($query) use ($value, $relat_key, $key) {
                         $attribute = str_replace($relat_key . '.', '', $key);
-                        // dd(ProtectSearch::getModelAttributes($query), $attribute);
-                        // ProtectSearch::issetAttribute()
                         if (!ProtectSearch::issetAttribute($attribute, $query)) return;
 
                         $this->setWhere(

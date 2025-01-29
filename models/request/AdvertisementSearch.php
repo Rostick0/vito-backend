@@ -53,21 +53,21 @@ class AdvertisementSearch extends Advertisement
 
     public function search($params)
     {
-        $query = $this::find()->with('images');
+        $query = Advertisement::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
                 'pageSize' => 20,
             ],
-            // 'expand' => $params['expand']
         ]);
 
 
-        if (isset($params['filter'])) {
-            (new FilterSearch)->run($query, $params);
-        }
+        // if (isset($params['filter'])) {
+        //     (new FilterSearch)->run($query, $params);
+        // }
 
+        // dd($this->load($params['filter']), $this->validate());
         if (!($this->validate() && $this->load($params))) {
             return $dataProvider;
         }

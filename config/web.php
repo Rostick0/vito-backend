@@ -33,6 +33,10 @@ $config = [
         'response' => [
             'format' =>  \yii\web\Response::FORMAT_JSON
         ],
+        // 'serializer' => [
+        //     'class' => 'yii\rest\Serializer',
+        //     'collectionEnvelope' => 'items',
+        // ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

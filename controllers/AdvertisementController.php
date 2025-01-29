@@ -31,11 +31,7 @@ class AdvertisementController extends \yii\rest\ActiveController
         unset($actions['create']);
         unset($actions['update']);
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-        // $actions['index']['serializer'] = [
-        //     'class' => 'yii\rest\Serializer',
-        //     'expandParam' => 'expand', // Параметр для управления expand
-        //     // 'fieldsParam' => 'fields', // Для выборки определённых полей
-        // ];
+        
         // $actions['index']['dataFilter'] = [
         //     'class' => \yii\data\ActiveDataFilter::class,
         //     'searchModel' => $this->modelClass,
