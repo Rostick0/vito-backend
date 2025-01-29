@@ -18,11 +18,12 @@ class m250111_213052_create_advertisements_table extends Migration
             'price' => $this->integer(),
             'description' => $this->text(),
             'is_show' => $this->boolean(),
+            'is_new' => $this->boolean(),
             'product_id' => $this->integer()->notNull(),
             'office_id' => $this->integer()->notNull(),
             'user_id' => $this->integer(),
-            'created_at' => $this->dateTime(),
-            'updated_at' => $this->dateTime(),
+            'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 
         $this->addForeignKey('fk-advertisements-product_id', 'advertisements', 'product_id', 'products', 'id', 'CASCADE');

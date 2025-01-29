@@ -13,6 +13,7 @@ use Yii;
  * @property string $title
  * @property int $price
  * @property $is_show
+ * @property $is_new
  * @property int $product_id
  * @property int $user_id
  * @property DateTime $created_at
@@ -59,7 +60,7 @@ class Advertisement extends ActiveRecord
             [['price', 'product_id', 'office_id'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 65536],
-            [['is_show'], 'boolean'],
+            [['is_show', 'is_new'], 'boolean'],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Product::class, 'targetAttribute' => ['product_id' => 'id']],
             [['office_id'], 'exist', 'skipOnError' => true, 'targetClass' => Office::class, 'targetAttribute' => ['office_id' => 'id']],
             [['mainImage'], 'safe']
