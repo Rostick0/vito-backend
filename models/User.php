@@ -26,6 +26,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         return 'users';
     }
 
+    public $repeat_password;
     public $authKey;
     public $accessToken;
 

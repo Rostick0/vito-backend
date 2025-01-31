@@ -31,7 +31,7 @@ class AdvertisementController extends \yii\rest\ActiveController
         unset($actions['create']);
         unset($actions['update']);
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-        
+
         // $actions['index']['dataFilter'] = [
         //     'class' => \yii\data\ActiveDataFilter::class,
         //     'searchModel' => $this->modelClass,
@@ -90,7 +90,7 @@ class AdvertisementController extends \yii\rest\ActiveController
     {
         if (
             array_search($action, ['update', 'delete']) !== false &&
-            !(Yii::$app->user->identity->role === 'admin' || Yii::$app->user?->id === $model?->user_id)
+            !(Yii::$app->user->identity?->role === 'admin' || Yii::$app->user?->id === $model?->user_id)
         ) {
             throw new \yii\web\ForbiddenHttpException('No access');
         }

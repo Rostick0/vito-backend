@@ -30,7 +30,9 @@ class AuthController extends \yii\rest\Controller
     public function actionRegister()
     {
         $model = new \app\models\User();
-        if ($model->load(Yii::$app->request->post(), '') && $model->validate()) {
+        $model->load(Yii::$app->request->post(), '');
+        
+        if ($model->validate()) {
             $model->setPassword($model->password);
             $model->save();
 
@@ -43,7 +45,7 @@ class AuthController extends \yii\rest\Controller
 
             return [
                 'user' => $user,
-                'token' => (string) $token,
+                'access_token' => (string) $token,
             ];
         }
 
@@ -55,7 +57,9 @@ class AuthController extends \yii\rest\Controller
     public function actionLogin()
     {
         $model = new \app\models\LoginForm();
-        if ($model->load(Yii::$app->request->post(), '') && $model->login()) {
+        $model->load(Yii::$app->request->post(), '');
+
+        if ($model->validate() && $model->login()) {
             $user = Yii::$app->user->identity;
 
             $token = $this->generateJwt($user);
@@ -64,7 +68,7 @@ class AuthController extends \yii\rest\Controller
 
             return [
                 'user' => $user,
-                'token' => (string) $token,
+                'access_token' => (string) $token,
             ];
         }
 
@@ -99,7 +103,7 @@ class AuthController extends \yii\rest\Controller
 
             return [
                 'status' => 'ok',
-                'token' => (string) $token,
+                'access_token' => (string) $token,
             ];
         } elseif (Yii::$app->request->getMethod() == 'DELETE') {
             // Logging out

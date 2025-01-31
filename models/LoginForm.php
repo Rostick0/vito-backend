@@ -28,12 +28,15 @@ class LoginForm extends Model
     public function rules()
     {
         return [
-            // email and password are both required
             [['email', 'password'], 'required'],
             // rememberMe must be a boolean value
             // ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-            ['password', 'validatePassword'],
+            ['email', 'string', 'max' => 255, 'skipOnEmpty' => false],
+            ['email', 'trim'],
+            ['email', 'email'],
+            ['email', 'validatePassword'],
+            ['password', 'string', 'min' => 8, 'skipOnEmpty' => false],
         ];
     }
 
@@ -61,10 +64,7 @@ class LoginForm extends Model
      */
     public function login()
     {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), self::$timeToken);
-        }
-        return false;
+        return Yii::$app->user->login($this->getUser(), self::$timeToken);
     }
 
     /**
