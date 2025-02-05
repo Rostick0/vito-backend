@@ -20,15 +20,6 @@ $config = [
                 'application/json' => 'yii\web\JsonParser',
             ],
         ],
-        // 'corsFilter' => [
-        //     'class' => \yii\filters\Cors::class,
-        //     'cors' => [
-        //         'Origin' => ['http://localhost:3032'],
-        //         'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'DELETE'],
-        //         'Access-Control-Allow-Credentials' => true, // Разрешить учётные данные (cookies и т. д.)
-        //         'Access-Control-Max-Age' => 3600, // Кэшировать предполетный ответ на 1 час
-        //     ]
-        // ],
 
         'response' => [
             'format' =>  \yii\web\Response::FORMAT_JSON
@@ -129,7 +120,8 @@ $config = [
             'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
             'Access-Control-Allow-Credentials' => true, // Разрешить учётные данные (cookies и т. д.)
             'Access-Control-Max-Age' => 3600, // Кэшировать предполетный ответ на 1 час
-            'Access-Control-Allow-Headers' => ['*']
+            // 'Access-Control-Allow-Headers' => ['*']
+            'Access-Control-Allow-Headers' => ['origin', 'authorization', 'X-Requested-With', 'X-Auth-Token', 'content-type']
         ]
     ],
     'params' => $params,

@@ -13,7 +13,6 @@ class AuthController extends \yii\rest\Controller
     {
         $behaviors = parent::behaviors();
 
-        // dd(Yii::$app->timeZone);
         $behaviors['authenticator'] = [
             'class' => \bizley\jwt\JwtHttpBearerAuth::class,
             'except' => [
@@ -31,7 +30,7 @@ class AuthController extends \yii\rest\Controller
     {
         $model = new \app\models\User();
         $model->load(Yii::$app->request->post(), '');
-        
+
         if ($model->validate()) {
             $model->setPassword($model->password);
             $model->save();
@@ -119,8 +118,6 @@ class AuthController extends \yii\rest\Controller
 
     public function actionMe()
     {
-        // dd(Yii::$app->user->identity);
-
         return [
             'user' => Yii::$app->user->identity
         ];
