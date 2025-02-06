@@ -58,7 +58,7 @@ class AdvertisementSearch extends Advertisement
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => 20,
+                'pageSize' => min($params['limit'] ?? Yii::$app->params['pagination']['default'], Yii::$app->params['pagination']['max']),
             ],
         ]);
 
