@@ -9,8 +9,9 @@ use yii\web\ForbiddenHttpException;
  * This is the model class for table "user".
  *
  * @property int $id
- * @property string|null $email
- * @property string|null $password
+ * @property string $name
+ * @property string $email
+ * @property string $password
  * @property string $role
  * @property string|null $created_at
  *
@@ -36,11 +37,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['email', 'password'], 'required'],
+            [['email', 'password', 'name', 'tel'], 'required'],
             [['email'], 'email'],
-            [['email'], 'trim'],
+            [['email', 'name'], 'trim'],
             [['email'], 'unique', 'targetClass' => \app\models\User::class],
-            [['email'], 'string', 'max' => 255],
+            [['email', 'name', 'tel'], 'string', 'max' => 255],
             [['password'], 'string', 'min' => 8],
         ];
     }
