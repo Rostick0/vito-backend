@@ -26,9 +26,10 @@ class FilterSearch
 
     public function setValue($val, $type_search)
     {
-        if (array_search($type_search, [$this->type_search['in'], $this->type_search['not_in']]) !== false) {
-            return json_decode($val);
-        }
+        if (array_search(
+            $type_search,
+            [$this->type_search['in'], $this->type_search['not_in']]
+        ) !== false) return json_decode($val);
 
         return $val;
     }
@@ -78,7 +79,7 @@ class FilterSearch
                     }
                 ]);
             } else {
-                if (!ProtectSearch::issetAttribute($key, $query)) return;
+                if (!ProtectSearch::issetAttribute($key, $query)) continue;
                 $this->setWhere($value, $query, $query->modelClass::tableName() . '.' . $key);
             }
         }
