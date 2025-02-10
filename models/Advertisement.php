@@ -147,17 +147,33 @@ class Advertisement extends ActiveRecord
             }
         }
 
-        if ($properties_products = $request->getBodyParam('properties_products')) {
+        if ($advertisement_properties = $request->getBodyParam('advertisement_properties')) {
             AdvertisementProperty::deleteAll([
                 'advertisement_id' => $this->id,
             ]);
 
-            foreach ($properties_products as $product_property_id) {
-                // dd($product_property_id);
+            foreach ($advertisement_properties as $product_property_id) {
                 $advertisement_property = new AdvertisementProperty();
 
                 if ($advertisement_property->load([
                     'product_property_id' => $product_property_id,
+                    'advertisement_id' => $this->id,
+                ], '') && $advertisement_property->validate()) {
+                    $advertisement_property->save();
+                }
+            }
+        }
+
+        if ($advertisement_defects = $request->getBodyParam('advertisement_defects')) {
+            AdvertisementDefect::deleteAll([
+                'advertisement_id' => $this->id,
+            ]);
+
+            foreach ($advertisement_defects as $defect_id) {
+                $advertisement_property = new AdvertisementDefect();
+
+                if ($advertisement_property->load([
+                    'defect_id' => $defect_id,
                     'advertisement_id' => $this->id,
                 ], '') && $advertisement_property->validate()) {
                     $advertisement_property->save();
