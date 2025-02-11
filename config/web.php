@@ -86,6 +86,7 @@ $config = [
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'property', 'only' => ['index']],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'product-property', 'only' => ['index']],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'defect', 'only' => ['index']],
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'defect-type', 'only' => ['index']],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'vendor',

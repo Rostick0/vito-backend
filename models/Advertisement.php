@@ -83,7 +83,7 @@ class Advertisement extends ActiveRecord
 
     public function extraFields()
     {
-        return ['advertisementProperties', 'images', 'mainImage', 'product', 'user'];
+        return ['advertisementProperties', 'advertisementDefects', 'images', 'mainImage', 'product', 'user'];
     }
 
     /**
@@ -92,6 +92,14 @@ class Advertisement extends ActiveRecord
     public function getAdvertisementProperties(): \yii\db\ActiveQuery
     {
         return $this->hasMany(AdvertisementProperty::class, ['advertisement_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[AdvertisementDefect]].
+     */
+    public function getAdvertisementDefects(): \yii\db\ActiveQuery
+    {
+        return $this->hasMany(AdvertisementDefect::class, ['advertisement_id' => 'id']);
     }
 
     /**
