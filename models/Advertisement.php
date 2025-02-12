@@ -20,6 +20,7 @@ use Yii;
  * @property DateTime $updated_at
  *
  * @property AdvertisementProperty[] $advertisementProperties
+ * @property AdvertisementDefect[] $advertisementDefects
  * @property Product $product
  */
 class Advertisement extends ActiveRecord
@@ -160,14 +161,16 @@ class Advertisement extends ActiveRecord
                 'advertisement_id' => $this->id,
             ]);
 
-            foreach ($advertisement_properties as $product_property_id) {
-                $advertisement_property = new AdvertisementProperty();
+            if (!$this->is_new) {
+                foreach ($advertisement_properties as $product_property_id) {
+                    $advertisement_property = new AdvertisementProperty();
 
-                if ($advertisement_property->load([
-                    'product_property_id' => $product_property_id,
-                    'advertisement_id' => $this->id,
-                ], '') && $advertisement_property->validate()) {
-                    $advertisement_property->save();
+                    if ($advertisement_property->load([
+                        'product_property_id' => $product_property_id,
+                        'advertisement_id' => $this->id,
+                    ], '') && $advertisement_property->validate()) {
+                        $advertisement_property->save();
+                    }
                 }
             }
         }
