@@ -22,13 +22,14 @@ class FilterSearch
         'in' => 'in',
         'not_in' => 'not in',
         'like' => 'like',
+        'is' => 'is ',
     ];
 
     public function setValue($val, $type_search)
     {
         if (array_search(
             $type_search,
-            [$this->type_search['in'], $this->type_search['not_in']]
+            [$this->type_search['in'], $this->type_search['not_in'], $this->type_search['is']]
         ) !== false) return json_decode($val);
 
         return $val;

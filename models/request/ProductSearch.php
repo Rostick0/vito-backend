@@ -38,12 +38,12 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'vendor_id', 'category_id'], 'integer'],
-            [['is_show'], 'boolean'],
-            [['created_at'], 'safe'],
-            [['name'], 'string', 'max' => 255],
-            [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            // [['id', 'vendor_id', 'category_id'], 'integer'],
+            // [['is_show'], 'boolean'],
+            // [['created_at'], 'safe'],
+            // [['name'], 'string', 'max' => 255],
+            // [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
+            // [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 
