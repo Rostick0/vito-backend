@@ -3,6 +3,7 @@
 namespace app\models\request;
 
 use app\models\Vendor;
+use app\utils\Filter\FilterFull;
 
 /**
  * This is the ActiveQuery class for [[Vendor]].
@@ -27,5 +28,10 @@ class VendorQuery extends Vendor
             [['id'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
+    }
+
+    public function search($params)
+    {
+        return FilterFull::search(Vendor::find(), $params);
     }
 }

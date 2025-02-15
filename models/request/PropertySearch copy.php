@@ -3,9 +3,7 @@
 namespace app\models\request;
 
 use app\models\Category;
-use app\models\Product;
-use app\models\Vendor;
-use app\utils\Filter\FilterFull;
+use app\models\Property;
 use app\utils\Filter\FilterSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -22,17 +20,8 @@ use yii\data\ActiveDataProvider;
  * @property Category $category
  */
 // \yii\base\Model
-class ProductSearch extends Product
+class PropertySearch extends Property
 {
-    // public $id;
-    // public $name;
-    // public $category_id;
-    // public $category;
-    // public $categoryName;
-    // public $productProperties;
-    // public $productPropertiesName;
-    // public $filters = [];
-
     /**
      * {@inheritdoc}
      */
@@ -40,9 +29,9 @@ class ProductSearch extends Product
     {
         return [
             // [['id', 'vendor_id', 'category_id'], 'integer'],
-            // [['is_show'], 'boolean'],
+            [['is_specified', 'is_filter'], 'boolean'],
             // [['created_at'], 'safe'],
-            // [['name'], 'string', 'max' => 255],
+            [['name', 'unit'], 'string', 'max' => 255],
             // [['vendor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Vendor::class, 'targetAttribute' => ['vendor_id' => 'id']],
             // [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -50,6 +39,23 @@ class ProductSearch extends Product
 
     public function search($params)
     {
-        return FilterFull::search(Product::find(), $params);
+        $query = Property::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
+
+        if (isset($params['filter'])) {
+            (new FilterSearch)->run($query, $params);
+        }
+
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        return $dataProvider;
     }
 }

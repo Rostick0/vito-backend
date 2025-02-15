@@ -4,6 +4,7 @@ namespace app\models\request;
 
 use app\models\Category;
 use app\models\Product;
+use app\utils\Filter\FilterFull;
 use Yii;
 
 /**
@@ -31,5 +32,10 @@ class CategorySearch extends Category
             [['id', 'category_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
         ];
+    }
+
+    public function search($params)
+    {
+        return FilterFull::search(Category::find(), $params);
     }
 }

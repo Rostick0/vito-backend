@@ -8,6 +8,7 @@ use app\models\Office;
 use app\models\Product;
 use app\models\User;
 use app\models\Vendor;
+use app\utils\Filter\FilterFull;
 use app\utils\Filter\FilterSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -53,24 +54,6 @@ class AdvertisementSearch extends Advertisement
 
     public function search($params)
     {
-        $query = Advertisement::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => min($params['limit'] ?? Yii::$app->params['pagination']['default'], Yii::$app->params['pagination']['max']),
-            ],
-        ]);
-
-
-        if (isset($params['filter'])) {
-            (new FilterSearch)->run($query, $params);
-        }
-
-        if (!($this->validate() && $this->load($params))) {
-            return $dataProvider;
-        }
-
-        return $dataProvider;
+        return FilterFull::search(Advertisement::find(), $params);
     }
 }

@@ -4,6 +4,7 @@ namespace app\models\request;
 
 use app\models\Category;
 use app\models\Property;
+use app\utils\Filter\FilterFull;
 use app\utils\Filter\FilterSearch;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -39,23 +40,6 @@ class PropertySearch extends Property
 
     public function search($params)
     {
-        $query = Property::find();
-
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);
-
-        if (isset($params['filter'])) {
-            (new FilterSearch)->run($query, $params);
-        }
-
-        if (!($this->load($params) && $this->validate())) {
-            return $dataProvider;
-        }
-
-        return $dataProvider;
+        return FilterFull::search(Property::find(), $params);
     }
 }
