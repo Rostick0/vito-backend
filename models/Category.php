@@ -51,7 +51,7 @@ class Category extends \yii\db\ActiveRecord
 
     public function extraFields()
     {
-        return ['products'];
+        return ['products', 'categories', 'categoriesCount'];
     }
 
     /**
@@ -64,6 +64,20 @@ class Category extends \yii\db\ActiveRecord
         return $this->hasMany(Product::class, ['category_id' => 'id']);
     }
 
+    /**
+     * Gets query for [[Categories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategories()
+    {
+        return $this->hasMany(Category::class, ['category_id' => 'id']);
+    }
+
+    public function getCategoriesCount()
+    {
+        return $this->getCategories()->count();
+    }
     // /**
     //  * {@inheritdoc}
     //  * @return VendorsQuery the active query used by this AR class.
