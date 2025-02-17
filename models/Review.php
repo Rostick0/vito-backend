@@ -14,6 +14,7 @@ use Yii;
  * @property string $reviewtable_type
  * @property int $user_id
  * @property string|null $created_at
+ * @property string|null $updated_at
  *
  * @property User $user
  */
@@ -33,11 +34,11 @@ class Review extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mark', 'text', 'reviewtable_id', 'reviewtable_type', 'user_id'], 'required'],
-            [['mark', 'reviewtable_id', 'user_id'], 'integer'],
+            [['mark', 'text', 'reviewtable_id', 'reviewtable_type'], 'required'],
+            [['reviewtable_id'], 'integer'],
+            [['mark'], 'integer', 'min' => 1, 'max' => 5],
             [['created_at'], 'safe'],
             [['text', 'reviewtable_type'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -54,6 +55,7 @@ class Review extends \yii\db\ActiveRecord
             'reviewtable_type' => 'Reviewtable Type',
             'user_id' => 'User ID',
             'created_at' => 'Created At',
+            'updated_at' => 'Updated At',
         ];
     }
 
@@ -70,5 +72,20 @@ class Review extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->user_id = Yii::$app->user->id;
+            } else {
+                $this->updated_at = (new \DateTimeImmutable())->format("Y-m-d H:i:s");
+            }
+
+            return true;
+        }
+
+        return false;
     }
 }

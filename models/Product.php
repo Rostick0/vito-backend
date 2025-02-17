@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
@@ -20,6 +21,8 @@ use Yii;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $mainImage;
+
     /**
      * {@inheritdoc}
      */
@@ -59,9 +62,24 @@ class Product extends \yii\db\ActiveRecord
         ];
     }
 
+    public function behaviors()
+    {
+        return [
+            'mainImage' => [
+                'class' => \yii\behaviors\AttributeBehavior::class,
+                'attributes' => [
+                    ActiveRecord::EVENT_AFTER_FIND => 'mainImage',
+                ],
+                'value' => function ($event) {
+                    return $this->getImages()->one()?->getRelation('image')?->one();
+                },
+            ],
+        ];
+    }
+
     public function extraFields()
     {
-        return ['images', 'category', 'vendor', 'productProperties'];
+        return ['images', 'mainImage', 'category', 'vendor', 'productProperties', 'reviews', 'reviewsCount'];
     }
 
     /**
@@ -94,6 +112,22 @@ class Product extends \yii\db\ActiveRecord
     public function getProductProperties(): \yii\db\ActiveQuery
     {
         return $this->hasMany(ProductProperty::class, ['product_id' => 'id']);
+    }
+
+    /**
+     * Gets query for [[Review]].
+     */
+    public function getReviews(): \yii\db\ActiveQuery
+    {
+        return $this->hasMany(Review::class, ['reviewtable_id' => 'id'])->where(['reviewtable_type' => $this::class]);
+    }
+
+    /**
+     * Gets query for [[ReviewsCount]].
+     */
+    public function getReviewsCount()
+    {
+        return $this->getReviews()->count();
     }
 
     public function extendsMutation(yii\web\Request $request): void

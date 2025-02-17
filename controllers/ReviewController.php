@@ -49,18 +49,31 @@ class ReviewController extends \yii\rest\ActiveController
     public function actionCreate()
     {
         $review = new Review();
+        $post = Yii::$app->request->post();
+
 
         if (!($review->load(
-            Yii::$app->request->post(),
+            $post,
             ''
         ) && $review->validate())) {
             Yii::$app->response->setStatusCode(422);
             return $review->getErrors();
         }
 
+        if (Review::findOne([
+            'reviewtable_id' => $post['reviewtable_id'],
+            'reviewtable_type' => $post['reviewtable_type'],
+            'user_id' => Yii::$app->user?->id,
+        ])) {
+            Yii::$app->response->setStatusCode(400);
+            return [
+                'message' => 'You have review'
+            ];
+        }
+
         $review->save();
 
-        $review->extendsMutation(Yii::$app->request);
+        // $review->extendsMutation(Yii::$app->request);
 
         return $review;
     }
@@ -81,7 +94,7 @@ class ReviewController extends \yii\rest\ActiveController
 
         $review->save();
 
-        $review->extendsMutation(Yii::$app->request);
+        // $review->extendsMutation(Yii::$app->request);
 
         return $review;
     }

@@ -20,6 +20,7 @@ class m250215_150405_create_reviews_table extends Migration
             'reviewtable_type' => $this->string()->notNull(),
             'user_id' => $this->integer()->notNull(),
             'created_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
+            'updated_at' => $this->dateTime()->defaultExpression('CURRENT_TIMESTAMP'),
         ]);
 
         $this->createIndex('reviews_reviewstable_type_reviewstable_id_index', 'reviews', ['reviewtable_id', 'reviewtable_type']);

@@ -197,7 +197,7 @@ class Advertisement extends ActiveRecord
     {
         if (parent::beforeSave($insert)) {
             if ($insert) {
-                $this->user_id = Yii::$app->user->id ?? 1;
+                $this->user_id = Yii::$app->user->id;
             } else {
                 $this->updated_at = (new \DateTimeImmutable())->format("Y-m-d H:i:s");
             }
