@@ -46,6 +46,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
         ];
     }
 
+    public function fields()
+    {
+        $fields = parent::fields();
+
+        // Убираем поле password
+        unset($fields['password']);
+
+        return $fields;
+    }
+
     /**
      * {@inheritdoc}
      */

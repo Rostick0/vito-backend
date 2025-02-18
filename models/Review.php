@@ -34,7 +34,8 @@ class Review extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['mark', 'text', 'reviewtable_id', 'reviewtable_type'], 'required'],
+            [['mark', 'text'], 'required'],
+            [['reviewtable_id', 'reviewtable_type'], 'required', 'on' => 'create'],
             [['reviewtable_id'], 'integer'],
             [['mark'], 'integer', 'min' => 1, 'max' => 5],
             [['created_at'], 'safe'],

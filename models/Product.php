@@ -10,7 +10,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
- * @property float $price
+ * @property float $raiting 
  * @property int|null $is_show
  * @property int $category_id
  * @property int $vendor_id
@@ -38,7 +38,6 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'category_id', 'vendor_id'], 'required'],
-            // [['price'], 'double'],
             [['category_id', 'vendor_id'], 'integer'],
             [['created_at'], 'safe'],
             [['is_show'], 'boolean'],

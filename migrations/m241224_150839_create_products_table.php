@@ -15,6 +15,7 @@ class m241224_150839_create_products_table extends Migration
         $this->createTable('{{%products}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
+            'raiting' => $this->float()->defaultValue(0),
             'category_id' => $this->integer()->notNull(),
             'vendor_id' => $this->integer()->notNull(),
             'is_show' => $this->boolean(),
