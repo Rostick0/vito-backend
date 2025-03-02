@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Product;
 use app\models\Review;
 use app\models\request\ReviewSearch;
 use Yii;
@@ -31,11 +32,6 @@ class ReviewController extends \yii\rest\ActiveController
         unset($actions['create']);
         unset($actions['update']);
         $actions['index']['prepareDataProvider'] = [$this, 'prepareDataProvider'];
-
-        // $actions['index']['dataFilter'] = [
-        //     'class' => \yii\data\ActiveDataFilter::class,
-        //     'searchModel' => $this->modelClass,
-        // ];
 
         return $actions;
     }
@@ -97,6 +93,19 @@ class ReviewController extends \yii\rest\ActiveController
         // $review->extendsMutation(Yii::$app->request);
 
         return $review;
+    }
+
+    public function actionMarks($id)
+    {
+        return Review::find()->groupBy('mark')
+            ->select(['count(mark) as count', 'mark'])
+            ->where([
+                'reviewtable_id' => $id,
+                'reviewtable_type' => Product::class,
+            ])
+            ->orderBy('mark DESC')
+            ->asArray()
+            ->all();
     }
 
     public function checkAccess($action, $model = null, $params = [])
