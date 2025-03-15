@@ -42,11 +42,22 @@ class ReviewController extends \yii\rest\ActiveController
             ->search(Yii::$app->request->queryParams);
     }
 
+    public function actionMy()
+    {
+        return(Yii::$app->user->id);
+        $params = Yii::$app->request->queryParams;
+
+        return Review::findOne([
+            'reviewtable_id' => $params['reviewtable_id'],
+            'reviewtable_type' => $params['reviewtable_type'],
+            'user_id' => Yii::$app->user?->id,
+        ]);
+    }
+
     public function actionCreate()
     {
         $review = new Review();
         $post = Yii::$app->request->post();
-
 
         if (!($review->load(
             $post,
@@ -101,7 +112,8 @@ class ReviewController extends \yii\rest\ActiveController
             ->select(['count(mark) as count', 'mark'])
             ->where([
                 'reviewtable_id' => $id,
-                'reviewtable_type' => Product::class,
+                'reviewtable_type' => Yii::$app->request->getQueryParam('reviewtable_type'),
+                // 'reviewtable_type' => Product::class,
             ])
             ->orderBy('mark DESC')
             ->asArray()

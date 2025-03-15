@@ -86,7 +86,8 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'review',
                     'extraPatterns' => [
-                        'GET marks/<id>' => 'marks'
+                        'OPTIONS,GET marks/<id>' => 'marks',
+                        'OPTIONS,GET my' => 'my'
                     ]
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'product'],
@@ -98,7 +99,7 @@ $config = [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'vendor',
                     'extraPatterns' => [
-                        'GET name/<name>' => 'name'
+                        'OPTIONS,GET name/<name>' => 'name'
                     ]
                 ],
                 ['class' => 'yii\rest\UrlRule', 'controller' => 'office'],
@@ -128,7 +129,7 @@ $config = [
             'Origin' => ['http://localhost:3032'],
             'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
             'Access-Control-Allow-Credentials' => true, // Разрешить учётные данные (cookies и т. д.)
-            'Access-Control-Max-Age' => 3600, // Кэшировать предполетный ответ на 1 час
+            // 'Access-Control-Max-Age' => 3600, // Кэшировать предполетный ответ на 1 час
             // 'Access-Control-Allow-Headers' => ['*']
             'Access-Control-Allow-Headers' => ['origin', 'authorization', 'X-Requested-With', 'X-Auth-Token', 'content-type']
         ]
