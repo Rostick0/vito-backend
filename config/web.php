@@ -81,7 +81,14 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'category', 'only' => ['index', 'show']],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'category',
+                    'only' => ['index', 'show'],
+                    // 'extraPatterns' => [
+                    //     'OPTIONS <action>' => 'options',
+                    // ],
+                ],
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'review',
@@ -131,7 +138,7 @@ $config = [
             'Access-Control-Allow-Credentials' => true, // Разрешить учётные данные (cookies и т. д.)
             // 'Access-Control-Max-Age' => 3600, // Кэшировать предполетный ответ на 1 час
             // 'Access-Control-Allow-Headers' => ['*']
-            'Access-Control-Allow-Headers' => ['origin', 'authorization', 'X-Requested-With', 'X-Auth-Token', 'content-type']
+            'Access-Control-Allow-Headers' => ['Origin', 'Authorization', 'X-Requested-With', 'X-Auth-Token', 'Content-Type']
         ]
     ],
     'params' => $params,

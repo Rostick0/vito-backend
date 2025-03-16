@@ -14,13 +14,13 @@ class AdvertisementController extends \yii\rest\ActiveController
     {
         $behaviors = parent::behaviors();
 
-        // $behaviors['authenticator'] = [
-        //     'class' => \bizley\jwt\JwtHttpBearerAuth::class,
-        //     'except' => [
-        //         'index',
-        //         'view',
-        //     ],
-        // ];
+        $behaviors['authenticator'] = [
+            'class' => \bizley\jwt\JwtHttpBearerAuth::class,
+            'except' => [
+                'index',
+                'view',
+            ],
+        ];
 
         return $behaviors;
     }

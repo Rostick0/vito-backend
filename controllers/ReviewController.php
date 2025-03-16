@@ -15,13 +15,14 @@ class ReviewController extends \yii\rest\ActiveController
     {
         $behaviors = parent::behaviors();
 
-        // $behaviors['authenticator'] = [
-        //     'class' => \bizley\jwt\JwtHttpBearerAuth::class,
-        //     'except' => [
-        //         'index',
-        //         'view',
-        //     ],
-        // ];
+        $behaviors['authenticator'] = [
+            'class' => \bizley\jwt\JwtHttpBearerAuth::class,
+            'only' => [
+                'my',
+                'create',
+                'update',
+            ],
+        ];
 
         return $behaviors;
     }
@@ -44,7 +45,9 @@ class ReviewController extends \yii\rest\ActiveController
 
     public function actionMy()
     {
-        return(Yii::$app->user->id);
+        // return(Yii::$app->user);
+        // return(Yii::$app->user->id);
+        // return Yii::$app->request->headers;
         $params = Yii::$app->request->queryParams;
 
         return Review::findOne([
