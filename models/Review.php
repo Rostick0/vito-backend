@@ -89,4 +89,16 @@ class Review extends \yii\db\ActiveRecord
 
         return false;
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->reviewtable_type::findOne([
+            'id' => $this->reviewtable_id,
+        ])->updateAttributes([
+            'raiting' => $this::find()->where([
+                'reviewtable_id' => $this->reviewtable_id,
+                'reviewtable_type' => $this->reviewtable_type,
+            ])->average('mark')
+        ]);
+    }
 }
